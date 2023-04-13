@@ -4,15 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.SpringIntegration.Model.OutlookIntegration;
-import com.SpringIntegration.repo.SpringIntegrationRepoInterface;
+import com.SpringIntegration.repo.OutlookIntegrationRepoInterface;
 
 @Service
-public class SpringIntegrationServiceImplementation {
+public class OutlookIntegrationServiceImplementation {
+	
 	@Autowired
-	SpringIntegrationRepoInterface springIntegrationRepoInterace;
+	private OutlookIntegrationRepoInterface outlookIntegrationRepoInterface;
 	
 	public String save(OutlookIntegration outlookInntegration) {
-		springIntegrationRepoInterace.save(outlookInntegration);
+		outlookIntegrationRepoInterface.save(outlookInntegration);
 		return null;
 	}
 	
