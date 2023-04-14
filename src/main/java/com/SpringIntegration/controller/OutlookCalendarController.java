@@ -35,7 +35,7 @@ public class OutlookCalendarController {
 		
 		String accessTokenUrl = "https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token"
 				+ "client_id = ae0e9cc9-1037-4a6a-b708-175a68bcd082" + "&grant_type=authorization_code"
-				+ "&redirect_uri=https://localhost:9090/oauth/outlook/callback" + "&response_mode=query"
+				+ "&redirect_uri=https://localhost:9090/oauth/outlook/callback" 
 				+ "&scope=https://graph.microsoft.com/Calendars.ReadWrite "
 				+ "https://graph.microsoft.com/offline_access " + "https://graph.microsoft.com/User.Read"
 				+ "client_secret=7fc6f375-35b5-4e3b-9a4d-dd6b8117486b"+
