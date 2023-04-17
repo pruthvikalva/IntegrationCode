@@ -14,27 +14,28 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.SpringIntegration.Model.DropBoxIntegrationModel;
+import com.SpringIntegration.Model.WebexIntegrationModel;
 import com.SpringIntegration.service.DropboxServiceImplementation;
+import com.SpringIntegration.service.WebexServiceImplementation;
 
 
 @RestController
-@RequestMapping("/oauth/dropbox")
-public class DropBoxController {
-
-	private static final String API_ENDPOINT = "https://api.dropboxapi.com/oauth2/token";
-	private static final String AUTHORIZATION_URI = "//www.dropbox.com/oauth2/authorize?";
+@RequestMapping("/oauth/webex")
+public class WebexIntegrationController {
+	private static final String API_ENDPOINT = "https://webexapis.com/v1/oauth/token";
+	private static final String AUTHORIZATION_URI = "https://webexapis.com/v1/oauth/authorize?";
     private static final String CLIENT_ID = "9kG8YdzoRl3QSDpfb4QQ";
     private static final String CLIENT_SECRET = "qpspTvLXor3F6uirQFgpxSpjscx8p2Oc";
-    private static final String REDIRECT_URI = "https://localhost:9090/oauth/dropbox/callback";
+    private static final String REDIRECT_URI = "https://localhost:9090/oauth/webex/callback";
     @Autowired
-    private DropboxServiceImplementation dropboxServiceImplementation;
+    private WebexServiceImplementation webexServiceImplementation;
 	
 	@GetMapping("/authorize")
 	public String authorize() {
 		String redirect = AUTHORIZATION_URI
 				+ "client_id ="+CLIENT_ID +"&response_type=code"
 				+ "&redirect_uri="+REDIRECT_URI + "&token_access_type=offline"
-				+ "&scope= account_info.read files.content.read files.content.write files.metadata.read "+
+				+ "&scope= spark:all spark:rooms_read "+
 				"&prompt=consent";
 
 		return redirect;
@@ -60,14 +61,13 @@ public class DropBoxController {
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody,headers);
         RestTemplate restTemplate = new RestTemplate();
         
-        ResponseEntity<DropBoxIntegrationModel> response = restTemplate.exchange(API_ENDPOINT, HttpMethod.POST, requestEntity,
-        		DropBoxIntegrationModel.class);
+        ResponseEntity<WebexIntegrationModel> response = restTemplate.exchange(API_ENDPOINT, HttpMethod.POST, requestEntity,
+        		WebexIntegrationModel.class);
 
-        DropBoxIntegrationModel dropboxIntegrationModel = response.getBody();
-		dropboxServiceImplementation.save(dropboxIntegrationModel);
-		return "";
+        WebexIntegrationModel webexIntegrationModel = response.getBody();
+        webexServiceImplementation.save(webexIntegrationModel);
+		return null;
 		
 		
 	}
-
 }

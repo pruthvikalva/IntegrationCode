@@ -28,6 +28,7 @@ public class ZoomController {
 	private ZoomServiceImplementation zoomServiceImplementation;
 	
 	private static final String API_ENDPOINT = "https://zoom.us/oauth/token";
+	private static final String AUTHORIZATION_URI = "https://zoom.us/oauth/authorize?";
     private static final String CLIENT_ID = "9kG8YdzoRl3QSDpfb4QQ";
     private static final String CLIENT_SECRET = "qpspTvLXor3F6uirQFgpxSpjscx8p2Oc";
     private static final String REDIRECT_URI = "https://localhost:9090/oauth/zoom/callback";
@@ -35,7 +36,7 @@ public class ZoomController {
 	
 	@GetMapping("/authorize")
 	public String authorize() {
-		String redirect = "https://zoom.us/oauth/authorize?"
+		String redirect = AUTHORIZATION_URI
 				+ "client_id = 9kG8YdzoRl3QSDpfb4QQ" + "&response_type=code"
 				+ "&redirect_uri="+REDIRECT_URI + "&response_mode=query"
 				+ "&scope= meeting:master meeting:write:admin ";
@@ -51,7 +52,8 @@ public class ZoomController {
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         
         // Set request body
-        String requestBody = "grant_type=authorization_code&code=" + code + "&redirect_uri=" + REDIRECT_URI;
+        String requestBody = "grant_type=authorization_code&code=" + code + 
+        		"&redirect_uri=" + REDIRECT_URI;
 		
         
      // Set client credentials for basic authentication
